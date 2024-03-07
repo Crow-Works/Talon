@@ -15,13 +15,14 @@ int main(int argc, char* argv[])
     std::string filename(argv[1]);
 
     Talon::YAMLMan yamlMan(filename);
-
+    yamlMan.ParseYAMLFile(filename);
     std::vector<Talon::Dependency> dependencies = yamlMan.GetDependencies();
-        
+ 
     std::cout << "Dependencies:" << std::endl;
     for(const auto& dependency : dependencies)
     {
         std::cout << "Name: " << dependency.Name << ", URL: " << dependency.URL << std::endl;
+        std::system(("git clone --recursive " + dependency.URL + " " + yamlMan.GetDependencyDir() + "/" + dependency.Name).c_str());
     }
 
     return 0;

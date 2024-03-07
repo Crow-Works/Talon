@@ -1,0 +1,6 @@
+Config:
+  DependencyDir: vendor
+
+Dependencies:
+  Box2D: https://github.com/PhilikusHD/box2d
+  GLFW: https://github.com/glfw/glfw.git

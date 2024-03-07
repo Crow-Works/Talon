@@ -16,10 +16,16 @@ namespace Talon
     public:
         YAMLMan(const std::string& filename);
         
+        void ParseYAMLFile(const std::string& filename);
+        void ParseConfig(const std::string& line);
+        void ParseDependency(const std::string& line);
+
         std::vector<Dependency> GetDependencies() { return m_Dependencies; }
+        std::string GetDependencyDir() const { return m_DependencyDir; }
+
     private:
-        void Trim(std::string& str) const;
-        
+        std::string m_Filename;
+        std::string m_DependencyDir;
         std::vector<Dependency> m_Dependencies;
     };
 }

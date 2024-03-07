@@ -42,3 +42,5 @@ Dependencies:
     ...
 ```
 
+### Notes
+This is currently only going to support git repositories

@@ -1,5 +1,7 @@
 # Talon Package Manager
 
+# STILL WORK IN PROGRESS! DO NOT USE AS OF NOW!
+
 ## Description
 
 Talon is a lightweight package manager designed specifically for managing dependencies for the Raven Game Engine. It simplifies the process of fetching, compiling, and managing dependencies necessary for development.

@@ -35,3 +35,4 @@ Talon
 compile_commands.json
 build/
 .cache/
+dependencies.yaml

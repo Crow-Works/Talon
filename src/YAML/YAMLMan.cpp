@@ -1,14 +1,13 @@
 #include "YAML/YAMLMan.h"
 #include <fstream>
 #include <iostream>
-#include <sstream>
 #include <string>
 
 namespace Talon 
 {
     YAMLMan::YAMLMan(const std::string& filename) : m_Filename(filename) {}
 
-    void YAMLMan::ParseYAMLFile(const std::string& filename)
+    void YAMLMan::ParseYAMLFile()
     {
         std::ifstream file(m_Filename);
         if (!file.is_open()) 
@@ -67,13 +66,22 @@ namespace Talon
             std::string key = line.substr(0, pos);
             std::string value = line.substr(pos + 1);
             // Trim leading and trailing whitespaces from key and value
-            key.erase(0, key.find_first_not_of(" \t"));
-            key.erase(key.find_last_not_of(" \t") + 1);
-            value.erase(0, value.find_first_not_of(" \t"));
-            value.erase(value.find_last_not_of(" \t") + 1);
+            Trim(key);
             if (key == "DependencyDir") 
             {
-                m_DependencyDir = value;
+                m_Config.DependencyDir = Trim(value);
+            } 
+            else if (key == "BuildDir") 
+            {
+               m_Config.BuildDir = Trim(value);
+            } 
+            else if (key == "LibraryDir") 
+            {
+                m_Config.LibraryDir = Trim(value);
+            } 
+            else if (key == "RemoveBuildDir") 
+            {
+                m_Config.RemoveBuildDir = Trim(value) == "true";
             }
         }
     }
@@ -94,5 +102,12 @@ namespace Talon
             dep.URL.erase(dep.URL.find_last_not_of(" \t") + 1);
             m_Dependencies.push_back(dep);
         }
+    }
+
+    std::string YAMLMan::Trim(const std::string& str) 
+    {
+        size_t start = str.find_first_not_of(" \t");
+        size_t end = str.find_last_not_of(" \t");
+        return (start != std::string::npos && end != std::string::npos) ? str.substr(start, end - start + 1) : "";
     }
 }

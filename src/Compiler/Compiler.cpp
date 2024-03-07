@@ -9,7 +9,7 @@ namespace Talon
     bool Compiler::CompileDependency(const std::string& buildDir, const std::string& dependencyDir, const Dependency& dependency, const std::string& libDir)
     {
         std::string dependencyBuildDir = buildDir + "/dependencies/" + dependency.Name;
-        std::string command = "cmake -S " + dependencyDir + "/" + dependency.Name + " -B " + dependencyBuildDir;
+        std::string command = "cmake -G Ninja -S " + dependencyDir + "/" + dependency.Name + " -B " + dependencyBuildDir;
 
         // Execute the CMake command for the dependency
         int result = std::system(command.c_str());

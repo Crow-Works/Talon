@@ -33,6 +33,7 @@ int main(int argc, char* argv[])
     if(!compiler->CompileDependencies(buildDir, dependencyDir, dependencies, removeBuildDir, libDir))
     {
         std::cout << "Compilation failed!" << std::endl;
+        return -1;
     }
 
     std::cout << "Compilation finished successfully!" << std::endl;

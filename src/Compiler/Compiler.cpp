@@ -31,10 +31,7 @@ namespace Talon
         // Move the output static library to the specified directory
         std::filesystem::create_directory(libDir);
 
-        if (!MoveLibraries(dependencyBuildDir, libDir, dependency.Name)) 
-        {
-            return false;
-        }
+        MoveLibraries(dependencyBuildDir, libDir, dependency.Name);
         
         std::cout << "Dependency " << dependency.Name << " compiled successfully." << std::endl;
         return true;
@@ -63,12 +60,14 @@ namespace Talon
             {
                 try 
                 {
-                    std::filesystem::copy(entry, targetDir, std::filesystem::copy_options::overwrite_existing);
+                    // Construct the full target file path by appending the original filename to the target directory
+                    std::filesystem::path targetFile = std::filesystem::path(targetDir) / entry.path().filename();
+                    std::filesystem::copy(entry, targetFile, std::filesystem::copy_options::overwrite_existing);
                     //return true; // Only move one library file
                 } 
                 catch (const std::exception& e) 
                 {
-                    std::cerr << "Error: Failed to move library file for dependency " << dependencyName << ": " << e.what() << std::endl;
+                    std::cout << "Failed to move library file for dependency " << dependencyName << ": " << e.what() << std::endl;
                     return false;
                 }
             }

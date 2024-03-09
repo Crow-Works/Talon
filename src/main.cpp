@@ -1,5 +1,4 @@
 #include "YAML/YAMLMan.h"
-#include "Compiler/Compiler.h"
 
 #include <iostream>
 
@@ -16,28 +15,34 @@ int main(int argc, char* argv[])
 
     YAMLMan yamlMan(filename);
     yamlMan.ParseYAMLFile();
-    std::vector<Dependency> dependencies = yamlMan.GetDependencies();
     Config config = yamlMan.GetConfig();
+    Projects proj = yamlMan.GetProjects();
+    std::vector<Dependency> dependencies = yamlMan.GetDependencies();
 
-    std::string buildDir = config.BuildDir; 
-    std::string dependencyDir = config.DependencyDir;
-    std::string libDir = config.LibraryDir;
-    bool removeBuildDir = config.RemoveBuildDir;
+    std::cout << "CONFIG:" << std::endl;
+    std::cout << "\tBuild Directory: " << config.BuildDir << std::endl;
+    std::cout << "\tDependency Directory: " << config.DependencyDir << std::endl;
+    std::cout << "\tLibrary Directory: " << config.LibraryDir << std::endl;
+    std::cout << "\tBinary Directory: " << config.BinaryDir << std::endl;
+    std::cout << "\tBuild in parallel: " << (config.ParallelBuild ? "true" : "false") << std::endl;
 
+    std::cout << "PROJECTS:" << std::endl;
+
+    // Print Libraries
+    std::cout << "\tLibraries:" << std::endl;
+    for (const auto& library : proj.Libraries) 
+    {
+        std::cout << "\t- " << library.first << ": " << library.second << std::endl;
+    }
+
+    // Print Executable
+    std::cout << "\tExecutable: " << proj.Executable << std::endl;
+    
+    std::cout << "DEPENDENCIES:" << std::endl;
     for(const auto& dependency : dependencies)
     {
-        std::system(("git clone --recursive " + dependency.URL + " " + dependencyDir + "/" + dependency.Name).c_str());
+        std::cout << "\tDependency: " << dependency.Name << " \n\tURL: " << dependency.URL << "\n=======" << std::endl;
     }
-
-    Compiler* compiler;
-    if(!compiler->CompileDependencies(buildDir, dependencyDir, dependencies, removeBuildDir, libDir))
-    {
-        std::cout << "Compilation failed!" << std::endl;
-        return -1;
-    }
-
-    std::cout << "Compilation finished successfully!" << std::endl;
-    std::cout << "Make sure to link the Compiled libraries in your CMakeLists.txt!" << std::endl;
 
     return 0;
 }

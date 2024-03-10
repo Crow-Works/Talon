@@ -32,14 +32,14 @@ namespace Talon
     {
         std::vector<std::string> IncludeDirs;
         // Project Name, Directory
-        std::vector<std::unordered_map<std::string, std::string>> SourceDirs;
+        std::unordered_map<std::string, std::string> SourceDirs;
     };
 
     struct Compiler
     {
         std::string CXXCompiler;
         std::string CCompiler;
-        std::string CXXStandards;
+        std::string CXXStandard;
         std::string CStandard;
         std::vector<std::string> CompilerFlags;
         std::string OptimizationLevel;
@@ -48,7 +48,8 @@ namespace Talon
     struct Link
     {
         // Project Name, Dependency
-        std::string LinkProjects;
+        std::string LinkTarget;
+        std::string LinkSrc;
     };    
 
     class YAMLMan

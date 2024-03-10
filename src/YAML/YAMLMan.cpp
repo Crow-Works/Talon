@@ -57,6 +57,21 @@ namespace Talon
             {
                 ParseDependency(line);
             }
+            else if(currentSection == "Build")
+            {
+                // TODO: Implement
+                ParseBuild(line);
+            }
+            else if(currentSection == "Compiler")
+            {
+                // TODO: Implement
+                ParseCompiler(line);
+            }
+            else if(currentSection == "Link")
+            {
+                // TODO: Implement
+                ParseLink(line);
+            }
         }
 
         file.close();
@@ -151,8 +166,6 @@ namespace Talon
         }
     }
 
-
-
     void YAMLMan::ParseDependency(const std::string& line) 
     {
         // Split the line into name and URL
@@ -169,6 +182,21 @@ namespace Talon
             dep.URL.erase(dep.URL.find_last_not_of(" \t") + 1);
             m_Dependencies.push_back(dep);
         }
+    }
+    
+    void YAMLMan::ParseBuild(const std::string& line)
+    {
+        
+    }
+    
+    void YAMLMan::ParseCompiler(const std::string& line)
+    {
+        
+    }
+
+    void YAMLMan::ParseLink(const std::string& line)
+    {
+        
     }
 
     std::string YAMLMan::Trim(const std::string& str) 

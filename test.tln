@@ -1,0 +1,16 @@
+[Config]
+	- BuildDir: "build"
+	- BinaryDir: "bin"
+	- LibraryDir: "lib"
+
+[Projects]
+	MyProject: binary
+
+[Build]
+	- IncludeDirs:	{ "src/", "vendor/" }
+	- SourceDirs:	{ @Projects.MyProject: "src" } 
+	- Configuration:
+		- Name: Debug
+			CompilerFlags:	{ -g, -O0 }
+		- Name: Release
+			CompilerFlags:	{ -O3 }

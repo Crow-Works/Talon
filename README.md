@@ -24,7 +24,7 @@ To utilize Talon for managing dependencies in the Raven Engine project, follow t
    ./Talon dependencies.yaml
    ```
 
-   This command triggers Talon to read the `dependencies.yaml` file, download the specified dependencies, compile them (if necessary), and integrate them into the Raven Engine project.
+   This command triggers Talon to read the `dependencies.yaml` file, download the specified dependencies, compile them (if necessary), and integrate them your project.
 
 ## YAML Configuration
 
